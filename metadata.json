@@ -1,0 +1,6 @@
+{
+  "name": "BoxVault Stock Sheet",
+  "description": "Offline-first Excel Stock Manager with Box Locator, QR Scanner, Cloud Auto-Sync, AES-256 Encryption, Monthly Payments & Multi-User RBAC.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

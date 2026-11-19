@@ -1,0 +1,570 @@
+{
+  "entities": {
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Verified global administrator account.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 200
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "email", "createdAt"]
+    },
+    "Workspace": {
+      "title": "Workspace",
+      "description": "Stock warehouse workspace configuration and settings.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "warehouseName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "currency": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8
+        },
+        "lowStockThreshold": {
+          "type": "number"
+        },
+        "autoSync": {
+          "type": "boolean"
+        },
+        "autoBackup": {
+          "type": "boolean"
+        },
+        "encryptionEnabled": {
+          "type": "boolean"
+        },
+        "pwaAppName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "pwaShortName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 12
+        },
+        "authorizedUids": {
+          "type": "array"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "ownerId",
+        "name",
+        "warehouseName",
+        "currency",
+        "lowStockThreshold",
+        "autoSync",
+        "autoBackup",
+        "encryptionEnabled",
+        "pwaAppName",
+        "pwaShortName",
+        "authorizedUids",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "WorkspaceMember": {
+      "title": "WorkspaceMember",
+      "description": "Multi-user access control member profile with role and status.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "email": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 200
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin", "manager", "staff", "viewer"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "suspended"]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "ownerId", "displayName", "email", "role", "status", "createdAt", "updatedAt"]
+    },
+    "StaffAccessProfile": {
+      "title": "StaffAccessProfile",
+      "description": "Hashed security code access profile for multi-user local/sync login.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "authorizedUids": {
+          "type": "array"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin", "manager", "staff", "viewer"]
+        },
+        "codeHash": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 128
+        },
+        "active": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["id", "ownerId", "authorizedUids", "label", "role", "codeHash", "active", "createdAt", "updatedAt"]
+    },
+    "StockProduct": {
+      "title": "StockProduct",
+      "description": "Excel stock item with box locator and QR code identifier.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "authorizedUids": {
+          "type": "array"
+        },
+        "sku": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 80
+        },
+        "boxNumber": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40
+        },
+        "rackLocation": {
+          "type": "string",
+          "maxLength": 80
+        },
+        "quantity": {
+          "type": "number"
+        },
+        "minStock": {
+          "type": "number"
+        },
+        "unitPrice": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 24
+        },
+        "supplier": {
+          "type": "string",
+          "maxLength": 120
+        },
+        "qrCodeValue": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "updatedBy": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "ownerId",
+        "authorizedUids",
+        "sku",
+        "name",
+        "category",
+        "boxNumber",
+        "rackLocation",
+        "quantity",
+        "minStock",
+        "unitPrice",
+        "unit",
+        "supplier",
+        "qrCodeValue",
+        "notes",
+        "updatedBy",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "MonthlyPayment": {
+      "title": "MonthlyPayment",
+      "description": "Monthly supplier, rent, or dues payment record.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "authorizedUids": {
+          "type": "array"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 140
+        },
+        "payee": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "month": {
+          "type": "string",
+          "minLength": 7,
+          "maxLength": 7,
+          "pattern": "^[0-9]{4}-[0-9]{2}$"
+        },
+        "amount": {
+          "type": "number"
+        },
+        "paidAmount": {
+          "type": "number"
+        },
+        "dueDate": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["paid", "pending", "overdue"]
+        },
+        "method": {
+          "type": "string",
+          "maxLength": 40
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 400
+        },
+        "updatedBy": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "ownerId",
+        "authorizedUids",
+        "title",
+        "payee",
+        "category",
+        "month",
+        "amount",
+        "paidAmount",
+        "dueDate",
+        "status",
+        "method",
+        "notes",
+        "updatedBy",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "AppNotification": {
+      "title": "AppNotification",
+      "description": "System alert for low stock, overdue payments, sync, and security events.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "authorizedUids": {
+          "type": "array"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 140
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 400
+        },
+        "type": {
+          "type": "string",
+          "enum": ["low_stock", "payment_due", "sync", "security", "backup"]
+        },
+        "read": {
+          "type": "boolean"
+        },
+        "createdBy": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "ownerId",
+        "authorizedUids",
+        "title",
+        "message",
+        "type",
+        "read",
+        "createdBy",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "CloudBackup": {
+      "title": "CloudBackup",
+      "description": "Encrypted JSON snapshot stored in Firestore cloud backup vault.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "ownerId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "authorizedUids": {
+          "type": "array"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 120
+        },
+        "itemCount": {
+          "type": "number"
+        },
+        "encrypted": {
+          "type": "boolean"
+        },
+        "checksum": {
+          "type": "string",
+          "minLength": 8,
+          "maxLength": 128
+        },
+        "payload": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 850000
+        },
+        "createdBy": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "ownerId",
+        "authorizedUids",
+        "label",
+        "itemCount",
+        "encrypted",
+        "checksum",
+        "payload",
+        "createdBy",
+        "createdAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/AdminUser" },
+      "description": "Verified global admin user records."
+    },
+    "/workspaces/{workspaceId}": {
+      "schema": { "$ref": "#/entities/Workspace" },
+      "description": "Stock warehouse workspace root document and admin-editable settings."
+    },
+    "/workspaces/{workspaceId}/members/{memberUid}": {
+      "schema": { "$ref": "#/entities/WorkspaceMember" },
+      "description": "Multi-user RBAC team members with PII isolation."
+    },
+    "/workspaces/{workspaceId}/staffProfiles/{profileId}": {
+      "schema": { "$ref": "#/entities/StaffAccessProfile" },
+      "description": "Hashed multi-user access code profiles (never stores master code)."
+    },
+    "/workspaces/{workspaceId}/products/{productId}": {
+      "schema": { "$ref": "#/entities/StockProduct" },
+      "description": "Stock items with box numbers, Excel grid metadata, and QR payloads."
+    },
+    "/workspaces/{workspaceId}/payments/{paymentId}": {
+      "schema": { "$ref": "#/entities/MonthlyPayment" },
+      "description": "Monthly payment tracking records."
+    },
+    "/workspaces/{workspaceId}/notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/AppNotification" },
+      "description": "In-app and sync notifications."
+    },
+    "/workspaces/{workspaceId}/backups/{backupId}": {
+      "schema": { "$ref": "#/entities/CloudBackup" },
+      "description": "Encrypted JSON cloud snapshots."
+    }
+  }
+}
